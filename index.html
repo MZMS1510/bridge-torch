@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bridge & Torch Puzzle Playground</title>
+  <title>Desafio da Ponte e Tocha</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="page">
     <header>
-      <h1>Bridge & Torch Puzzle Playground</h1>
-      <p>Help four friends cross a fragile, torch-lit bridge. Pick who moves, watch the torch travel, and see if you can match the optimal 17-minute solution.</p>
+  <h1>Desafio da Ponte e Tocha</h1>
+  <p>Ajude quatro amigos a atravessar uma ponte frágil, iluminada apenas por uma tocha. Escolha quem vai, acompanhe a tocha e tente igualar a solução ideal de 17 minutos.</p>
     </header>
 
     <main>
@@ -18,7 +18,7 @@
         <div id="scene">
           <div class="sky"></div>
           <div class="land left">
-            <span class="land-label">Camp Side</span>
+            <span class="land-label">Lado do acampamento</span>
           </div>
           <div class="bridge-area">
             <div class="rope rope-front"></div>
@@ -26,7 +26,7 @@
             <div class="planks"></div>
           </div>
           <div class="land right">
-            <span class="land-label">Safe Side</span>
+            <span class="land-label">Lado seguro</span>
           </div>
           <div id="torch">
             <div class="torch-stick"></div>
@@ -37,24 +37,24 @@
       </section>
 
       <section class="control-panel">
-        <div class="status-line"><strong>Torch:</strong> <span id="torchSide">Left</span></div>
-        <div class="status-line"><strong>Time:</strong> <span id="timeElapsed">0 min</span></div>
-        <div class="status-line"><strong>Goal:</strong> <span id="goalTime">17 min or less</span></div>
-        <div class="status-line"><strong>Selection:</strong> <span id="selectionText">none</span></div>
+  <div class="status-line"><strong>Tocha:</strong> <span id="torchSide">Esquerda</span></div>
+  <div class="status-line"><strong>Tempo:</strong> <span id="timeElapsed">0 min</span></div>
+  <div class="status-line"><strong>Objetivo:</strong> <span id="goalTime">17 min ou menos</span></div>
+  <div class="status-line"><strong>Seleção:</strong> <span id="selectionText">nenhuma</span></div>
         <div class="progress">
           <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="buttons">
-          <button id="crossButton" type="button" disabled>Send Torch Across</button>
-          <button id="undoButton" type="button" disabled>Undo</button>
-          <button id="resetButton" type="button">Reset</button>
-          <button id="solutionButton" type="button">Play Optimal Walkthrough</button>
+          <button id="crossButton" type="button" disabled>Levar tocha</button>
+          <button id="undoButton" type="button" disabled>Desfazer</button>
+          <button id="resetButton" type="button">Reiniciar</button>
+          <button id="solutionButton" type="button">Ver solução ideal</button>
         </div>
-        <p id="statusMessage">Pick one or two characters on the torch side to move.</p>
+        <p id="statusMessage">Escolha uma ou duas pessoas no lado da tocha para se mover.</p>
       </section>
 
       <section class="log-panel">
-        <h2>Move Log</h2>
+        <h2>Histórico de movimentos</h2>
         <ol id="historyList"></ol>
       </section>
     </main>
@@ -62,9 +62,9 @@
 
   <div id="modal" hidden>
     <div class="modal-content">
-      <h2>Bridge Cleared!</h2>
+      <h2>Ponte liberada!</h2>
       <p id="modalText"></p>
-      <button id="closeModal" type="button">Close</button>
+      <button id="closeModal" type="button">Fechar</button>
     </div>
   </div>
 

@@ -51,7 +51,8 @@
     closeModal: document.getElementById("closeModal")
   };
 
-  let baseStatus = "Pick one or two characters on the torch side to move.";
+  let baseStatus =
+    "Escolha uma ou duas pessoas no lado da tocha para se mover.";
   let statusTimer = null;
 
   // Build the character buttons and initial layout.
@@ -106,7 +107,11 @@
     if (state.isAnimating || state.isAutoPlaying) return;
     const currentSide = state.positions[char.id];
     if (currentSide !== state.torchSide) {
-      flashStatus(`The torch is on the ${state.torchSide}. ${char.label} cannot move yet.`);
+  flashStatus(
+    `A tocha está no lado ${describeSide(state.torchSide)}. ${
+      char.label
+    } ainda não pode se mover.`
+  );
       jiggle(char.element);
       return;
     }
@@ -116,9 +121,11 @@
       state.selections.delete(char.id);
     } else {
       if (state.selections.size >= limit) {
-        flashStatus(state.torchSide === "left"
-          ? "Choose up to two people to cross."
-          : "Only one person can bring the torch back.");
+        flashStatus(
+          state.torchSide === "left"
+            ? "Escolha no máximo duas pessoas para atravessar."
+            : "Apenas uma pessoa pode trazer a tocha de volta."
+        );
         jiggle(elements.crossButton);
         return;
       }
@@ -178,26 +185,37 @@
   }
 
   function updateHud() {
-    elements.torchSide.textContent = state.torchSide === "left" ? "Left (Camp)" : "Right (Safe)";
+  elements.torchSide.textContent =
+    state.torchSide === "left" ? "Esquerda (acampamento)" : "Direita (seguro)";
     elements.timeElapsed.textContent = `${state.timeElapsed} min`;
     elements.selectionText.textContent = state.selections.size
       ? describeSelection(Array.from(state.selections))
-      : "none";
+      : "nenhuma";
     const ratio = Math.min(1, state.timeElapsed / GOAL_TIME);
     elements.progressFill.style.width = `${ratio * 100}%`;
   }
 
   function describeSelection(selection) {
-    return selection
-      .map((id) => charById.get(id)?.label || id)
-      .join(" & ");
+    return selection.map((id) => charById.get(id)?.label || id).join(" e ");
+  }
+
+  function describeSide(side) {
+    return side === "left" ? "esquerdo" : "direito";
   }
 
   function describeMove(move) {
     const names = move.ids
       .map((id) => charById.get(id)?.label || id)
       .join(" & ");
-    const direction = move.from === "left" ? "crossed the bridge" : "brought the torch back";
+    const moverCount = move.ids.length;
+    const direction =
+      move.from === "left"
+        ? moverCount > 1
+          ? "atravessaram a ponte"
+          : "atravessou a ponte"
+        : moverCount > 1
+        ? "trouxeram a tocha de volta"
+        : "trouxe a tocha de volta";
     return `${names} ${direction} (+${move.duration} min).`;
   }
 
@@ -238,14 +256,17 @@
 
   function updateHistory() {
     if (!state.moves.length) {
-      elements.historyList.innerHTML = '<li class="placeholder">No moves yet - start by choosing who crosses first.</li>';
+  elements.historyList.innerHTML =
+    '<li class="placeholder">Nenhum movimento ainda - comece escolhendo quem atravessa primeiro.</li>';
       return;
     }
     let runningTotal = 0;
     elements.historyList.innerHTML = state.moves
       .map((move) => {
         runningTotal += move.duration;
-        return `<li><strong>${describeMove(move)}</strong> Running time: ${runningTotal} min</li>`;
+  return `<li><strong>${describeMove(
+    move
+  )}</strong> Tempo acumulado: ${runningTotal} min</li>`;
       })
       .join("");
   }
@@ -274,7 +295,7 @@
     updateScene();
     updateHistory();
     updateButtons();
-    setStatus("Rewound the last move. Try a different combination.");
+    setStatus("Movimento desfeito. Tente outra combinação.");
     hideModal();
   }
 
@@ -295,13 +316,15 @@
     updateHistory();
     updateButtons();
 
-    baseStatus = options.message || "Pick one or two characters on the torch side to move.";
+    baseStatus =
+      options.message ||
+      "Escolha uma ou duas pessoas no lado da tocha para se mover.";
     setStatus(baseStatus);
   }
 
   async function playSolution() {
     if (state.isAnimating || state.isAutoPlaying) return;
-    resetState({ message: "Automatic walkthrough in progress..." });
+    resetState({ message: "Reprodução automática em andamento..." });
     state.isAutoPlaying = true;
     updateButtons();
 
@@ -313,18 +336,20 @@
 
     state.isAutoPlaying = false;
     updateButtons();
-    setStatus("Everyone crossed in the optimal 17 minutes!");
+    setStatus("Todos atravessaram nos 17 minutos ideais!");
     checkForCompletion();
   }
 
   function checkForCompletion() {
-    const allRight = characters.every((char) => state.positions[char.id] === "right");
+    const allRight = characters.every(
+      (char) => state.positions[char.id] === "right"
+    );
     if (!allRight) return;
 
     const success = state.timeElapsed <= GOAL_TIME;
     const message = success
-      ? `Success! You matched the optimal time of ${GOAL_TIME} minutes.`
-      : `Everyone made it across in ${state.timeElapsed} minutes. Can you hit ${GOAL_TIME}?`;
+      ? `Sucesso! Você igualou o tempo ideal de ${GOAL_TIME} minutos.`
+      : `Todos atravessaram em ${state.timeElapsed} minutos. Dá para chegar em ${GOAL_TIME}?`;
 
     elements.modalText.textContent = message;
     elements.modal.hidden = false;
