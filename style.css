@@ -43,6 +43,13 @@ header {
   gap: 12px;
 }
 
+.brand-logo {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 8px;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+}
+
 header h1 {
   margin: 0;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
@@ -452,7 +459,7 @@ button:disabled {
   transition: none !important;
 }
 
-#modal {
+.modal-overlay {
   position: fixed;
   inset: 0;
   display: grid;
@@ -461,7 +468,7 @@ button:disabled {
   z-index: 10;
 }
 
-#modal[hidden] {
+.modal-overlay[hidden] {
   display: none;
 }
 
@@ -487,6 +494,28 @@ button:disabled {
 .modal-content button {
   margin-top: 18px;
   width: 100%;
+}
+
+.modal-content.info {
+  max-width: 420px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+  color: var(--text-main);
+  list-style: disc;
+}
+
+.info-question {
+  margin-top: 6px;
+  color: var(--text-main);
 }
 
 .shake {

@@ -9,8 +9,9 @@
 <body>
   <div class="page">
     <header>
-  <h1>Desafio da Ponte e Tocha</h1>
-  <p>Ajude quatro amigos a atravessar uma ponte frágil, iluminada apenas por uma tocha. Escolha quem vai, acompanhe a tocha e tente igualar a solução ideal de 17 minutos.</p>
+      <img src="assets/logo.png" alt="Logotipo do desafio da ponte" class="brand-logo">
+      <h1>Desafio da Ponte e Tocha</h1>
+      <p>Ajude quatro amigos a atravessar uma ponte frágil, iluminada apenas por uma tocha. Escolha quem vai, acompanhe a tocha e descubra a melhor sequência de travessias.</p>
     </header>
 
     <main>
@@ -37,20 +38,21 @@
       </section>
 
       <section class="control-panel">
-  <div class="status-line"><strong>Tocha:</strong> <span id="torchSide">Esquerda</span></div>
-  <div class="status-line"><strong>Tempo:</strong> <span id="timeElapsed">0 min</span></div>
-  <div class="status-line"><strong>Objetivo:</strong> <span id="goalTime">17 min ou menos</span></div>
-  <div class="status-line"><strong>Seleção:</strong> <span id="selectionText">nenhuma</span></div>
+        <div class="status-line"><strong>Tocha:</strong> <span id="torchSide">Esquerda</span></div>
+        <div class="status-line"><strong>Tempo:</strong> <span id="timeElapsed">0 min</span></div>
+        <div class="status-line"><strong>Meta:</strong> <span id="goalTime">Todos no lado seguro</span></div>
+        <div class="status-line"><strong>Seleção:</strong> <span id="selectionText">nenhuma</span></div>
         <div class="progress">
           <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="buttons">
+          <button id="infoButton" type="button">Ver enunciado</button>
           <button id="crossButton" type="button" disabled>Levar tocha</button>
           <button id="undoButton" type="button" disabled>Desfazer</button>
           <button id="resetButton" type="button">Reiniciar</button>
           <button id="solutionButton" type="button">Ver solução ideal</button>
         </div>
-        <p id="statusMessage">Escolha uma ou duas pessoas no lado da tocha para se mover.</p>
+        <p id="statusMessage">Escolha duas pessoas no lado da tocha para atravessar.</p>
       </section>
 
       <section class="log-panel">
@@ -60,11 +62,28 @@
     </main>
   </div>
 
-  <div id="modal" hidden>
+  <div id="modal" class="modal-overlay" hidden>
     <div class="modal-content">
       <h2>Ponte liberada!</h2>
       <p id="modalText"></p>
       <button id="closeModal" type="button">Fechar</button>
+    </div>
+  </div>
+
+  <div id="infoModal" class="modal-overlay" hidden>
+    <div class="modal-content info">
+      <h2>Como funciona o desafio?</h2>
+      <p>Quatro pessoas precisam atravessar uma ponte durante a noite.</p>
+      <p>Apenas duas podem cruzar por vez, e é obrigatório levar a tocha em cada travessia.</p>
+      <p>Cada pessoa caminha em velocidades diferentes:</p>
+      <ul class="info-list">
+        <li>Ava: 1 minuto</li>
+        <li>Ben: 2 minutos</li>
+        <li>Cara: 5 minutos</li>
+        <li>Dax: 10 minutos</li>
+      </ul>
+      <p class="info-question"><strong>Qual é o menor tempo necessário para que todos atravessem?</strong></p>
+      <button id="closeInfo" type="button">Entendi</button>
     </div>
   </div>
 
