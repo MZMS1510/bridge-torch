@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bridge & Torch Puzzle Playground</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Bridge & Torch Puzzle Playground</h1>
+      <p>Help four friends cross a fragile, torch-lit bridge. Pick who moves, watch the torch travel, and see if you can match the optimal 17-minute solution.</p>
+    </header>
+
+    <main>
+      <section class="scene-panel">
+        <div id="scene">
+          <div class="sky"></div>
+          <div class="land left">
+            <span class="land-label">Camp Side</span>
+          </div>
+          <div class="bridge-area">
+            <div class="rope rope-front"></div>
+            <div class="rope rope-back"></div>
+            <div class="planks"></div>
+          </div>
+          <div class="land right">
+            <span class="land-label">Safe Side</span>
+          </div>
+          <div id="torch">
+            <div class="torch-stick"></div>
+            <div class="torch-flame"></div>
+          </div>
+          <div id="character-layer"></div>
+        </div>
+      </section>
+
+      <section class="control-panel">
+        <div class="status-line"><strong>Torch:</strong> <span id="torchSide">Left</span></div>
+        <div class="status-line"><strong>Time:</strong> <span id="timeElapsed">0 min</span></div>
+        <div class="status-line"><strong>Goal:</strong> <span id="goalTime">17 min or less</span></div>
+        <div class="status-line"><strong>Selection:</strong> <span id="selectionText">none</span></div>
+        <div class="progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="buttons">
+          <button id="crossButton" type="button" disabled>Send Torch Across</button>
+          <button id="undoButton" type="button" disabled>Undo</button>
+          <button id="resetButton" type="button">Reset</button>
+          <button id="solutionButton" type="button">Play Optimal Walkthrough</button>
+        </div>
+        <p id="statusMessage">Pick one or two characters on the torch side to move.</p>
+      </section>
+
+      <section class="log-panel">
+        <h2>Move Log</h2>
+        <ol id="historyList"></ol>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" hidden>
+    <div class="modal-content">
+      <h2>Bridge Cleared!</h2>
+      <p id="modalText"></p>
+      <button id="closeModal" type="button">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
