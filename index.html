@@ -15,11 +15,12 @@
     </header>
 
     <main>
+      <p id="statusMessage">Escolha duas pessoas no lado da tocha para atravessar.</p>
       <section class="scene-panel">
         <div id="scene">
           <div class="sky"></div>
           <div class="land left">
-            <span class="land-label">Acampamento</span>
+            <span class="land-label">Margem esquerda</span>
           </div>
           <div class="bridge-area">
             <div class="rope rope-front"></div>
@@ -27,7 +28,7 @@
             <div class="planks"></div>
           </div>
           <div class="land right">
-            <span class="land-label">Lado seguro</span>
+            <span class="land-label">Margem direita</span>
           </div>
           <div id="torch">
             <div class="torch-stick"></div>
@@ -48,11 +49,8 @@
         <div class="buttons">
           <button id="infoButton" type="button">Ver enunciado</button>
           <button id="crossButton" type="button" disabled>Levar tocha</button>
-          <button id="undoButton" type="button" disabled>Desfazer</button>
           <button id="resetButton" type="button">Reiniciar</button>
-          <button id="solutionButton" type="button">Ver solução ideal</button>
         </div>
-        <p id="statusMessage">Escolha duas pessoas no lado da tocha para atravessar.</p>
       </section>
 
       <section class="log-panel">

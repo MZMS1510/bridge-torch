@@ -68,8 +68,9 @@ main {
   gap: 24px;
   grid-template-columns: minmax(320px, 3fr) minmax(260px, 2fr);
   grid-template-areas:
-    "scene controls"
-    "log log";
+    "status ."
+    "scene log"
+    "controls controls";
 }
 
 .scene-panel {
@@ -159,6 +160,7 @@ main {
 
 .buttons {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -189,22 +191,6 @@ button:disabled {
   opacity: 0.5;
 }
 
-#solutionButton {
-  background: rgba(85, 193, 255, 0.18);
-}
-
-#solutionButton:hover:not(:disabled) {
-  background: rgba(85, 193, 255, 0.32);
-}
-
-#undoButton {
-  background: rgba(239, 71, 111, 0.18);
-}
-
-#undoButton:hover:not(:disabled) {
-  background: rgba(239, 71, 111, 0.32);
-}
-
 #resetButton {
   background: rgba(6, 214, 160, 0.18);
 }
@@ -214,9 +200,11 @@ button:disabled {
 }
 
 #statusMessage {
+  grid-area: status;
   margin: 0;
   color: var(--text-muted);
-  min-height: 42px;
+  text-align: left;
+  font-size: 0.95rem;
   line-height: 1.4;
 }
 
@@ -535,6 +523,7 @@ button:disabled {
   main {
     grid-template-columns: 1fr;
     grid-template-areas:
+      "status"
       "scene"
       "controls"
       "log";

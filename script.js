@@ -24,22 +24,12 @@
     isAutoPlaying: false
   };
 
-  const solutionSequence = [
-    ["ava", "ben"],
-    ["ava"],
-    ["cara", "dax"],
-    ["ben"],
-    ["ava", "ben"]
-  ];
-
   const elements = {
     scene: document.getElementById("scene"),
     characterLayer: document.getElementById("character-layer"),
     torch: document.getElementById("torch"),
     crossButton: document.getElementById("crossButton"),
-    undoButton: document.getElementById("undoButton"),
     resetButton: document.getElementById("resetButton"),
-    solutionButton: document.getElementById("solutionButton"),
     torchSide: document.getElementById("torchSide"),
     timeElapsed: document.getElementById("timeElapsed"),
     selectionText: document.getElementById("selectionText"),
@@ -97,9 +87,7 @@
     }
   });
 
-  elements.undoButton.addEventListener("click", handleUndo);
   elements.resetButton.addEventListener("click", () => resetState());
-  elements.solutionButton.addEventListener("click", playSolution);
   elements.closeModal.addEventListener("click", hideModal);
   elements.modal.addEventListener("click", (event) => {
     if (event.target === elements.modal) hideModal();
@@ -202,9 +190,7 @@
 
   function updateHud() {
     elements.torchSide.textContent =
-      state.torchSide === "left"
-        ? "Esquerda (acampamento)"
-        : "Direita (seguro)";
+      state.torchSide === "left" ? "Margem esquerda" : "Margem direita";
     elements.timeElapsed.textContent = `${state.timeElapsed} min`;
     elements.selectionText.textContent = state.selections.size
       ? describeSelection(Array.from(state.selections))
@@ -301,30 +287,7 @@
     const validSelection = isSelectionValid();
     elements.crossButton.disabled =
       !validSelection || state.isAnimating || state.isAutoPlaying;
-    elements.undoButton.disabled =
-      !state.moves.length || state.isAnimating || state.isAutoPlaying;
     elements.resetButton.disabled = state.isAnimating && !state.isAutoPlaying;
-    elements.solutionButton.disabled = state.isAutoPlaying || state.isAnimating;
-  }
-
-  function handleUndo() {
-    if (!state.moves.length || state.isAnimating || state.isAutoPlaying) return;
-    const lastMove = state.moves.pop();
-    const fromSide = lastMove.from;
-    const toSide = lastMove.to;
-
-    lastMove.ids.forEach((id) => {
-      state.positions[id] = fromSide;
-    });
-    state.torchSide = fromSide;
-    state.timeElapsed = Math.max(0, state.timeElapsed - lastMove.duration);
-    state.selections.clear();
-
-    updateScene();
-    updateHistory();
-    updateButtons();
-    setStatus("Movimento desfeito. Tente outra combinação.");
-    hideModal();
   }
 
   function resetState(options = {}) {
@@ -348,24 +311,6 @@
       options.message ||
       "Escolha duas pessoas no lado da tocha para atravessar.";
     setStatus(baseStatus);
-  }
-
-  async function playSolution() {
-    if (state.isAnimating || state.isAutoPlaying) return;
-    resetState({ message: "Reprodução automática em andamento..." });
-    state.isAutoPlaying = true;
-    updateButtons();
-
-    for (const step of solutionSequence) {
-      if (!state.isAutoPlaying) break;
-      await wait(260);
-      await executeMove(step, { announce: true });
-    }
-
-    state.isAutoPlaying = false;
-    updateButtons();
-    setStatus("Todos atravessaram na solução ideal de 17 minutos!");
-    checkForCompletion();
   }
 
   function checkForCompletion() {
